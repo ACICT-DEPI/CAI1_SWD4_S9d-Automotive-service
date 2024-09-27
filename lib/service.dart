@@ -28,11 +28,14 @@ Widget customizedInputField(
         required String hintText,
         required String labelText,
         Widget? suffixIcon,
+        String? Function(String?)? validator,
+        Widget? prefixIcon,
         bool obscureText = false}) =>
     SizedBox(
         height: 80,
         child: TextFormField(
             controller: controller,
+            validator: validator,
             obscureText: obscureText,
             maxLines: 1,
             maxLength: maxLenght,
@@ -45,5 +48,8 @@ Widget customizedInputField(
                     const OutlineInputBorder(borderRadius: BorderRadius.zero),
                 hintText: hintText,
                 labelText: labelText,
+                prefixIcon: prefixIcon,
+                suffixIconColor: Colors.pink,
+                prefixIconColor: Colors.pink,
                 suffixIcon: suffixIcon != null ? suffixIcon : null,
                 labelStyle: const TextStyle(fontSize: 20))));

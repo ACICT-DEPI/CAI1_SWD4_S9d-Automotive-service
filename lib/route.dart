@@ -3,21 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app_cubit.dart';
+import 'home_screen.dart';
 import 'login_screen.dart';
+import 'onboarding.dart';
 
 class AppRoute {
   AppCubit cubitObject = AppCubit();
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/': // Use to reach home page
+      case '/':
+        return MaterialPageRoute(builder: (_) => OnBording());
+      case '/login': // Use to reach home page
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   create: (context) => cubitObject,
-                  child: const LoginScreen(),
+                  child: LoginScreen(),
                 ));
       case '/register': // Use strings for route names
-        return MaterialPageRoute(builder: (_) => RegisterScreen());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => cubitObject,
+                  child: RegisterScreen(),
+                ));
+      case "/home":
+        return MaterialPageRoute(builder: (_) => HomeScreen());
     }
     return null;
   }
