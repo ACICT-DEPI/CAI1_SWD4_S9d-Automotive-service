@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "935633957107",
+    "project_id": "automotive-services-69877",
+    "storage_bucket": "automotive-services-69877.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935633957107:android:0f59d9ccc0c7c084660786",
+        "android_client_info": {
+          "package_name": "com.example.demi1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAtZn-Kj1Epkss4gqAeBh4IK0RSIpLNQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
