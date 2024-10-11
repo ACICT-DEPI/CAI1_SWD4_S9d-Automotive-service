@@ -7,15 +7,18 @@ Widget customizedButton({
     SizedBox(
       width: double.infinity,
       height: 50,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ButtonStyle(
-          backgroundColor:
-              MaterialStateColor.resolveWith((states) => Colors.blue),
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(color: Colors.white, fontSize: 22),
+      child: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateColor.resolveWith((states) => Colors.blue),
+          ),
+          child: Text(
+            text,
+            style: const TextStyle(color: Colors.white, fontSize: 22),
+          ),
         ),
       ),
     );
@@ -49,7 +52,7 @@ Widget customizedInputField(
                 hintText: hintText,
                 labelText: labelText,
                 prefixIcon: prefixIcon,
-                suffixIconColor: Colors.pink,
-                prefixIconColor: Colors.pink,
+                suffixIconColor: Colors.deepOrange,
+                prefixIconColor: Colors.deepOrange,
                 suffixIcon: suffixIcon != null ? suffixIcon : null,
                 labelStyle: const TextStyle(fontSize: 20))));

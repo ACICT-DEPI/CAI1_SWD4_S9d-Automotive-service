@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'onbording-model.dart';
+import '../../data/model/onbording-model.dart';
 
 class OnBording extends StatefulWidget {
   @override
@@ -9,9 +9,12 @@ class OnBording extends StatefulWidget {
 
 class _OnBordingState extends State<OnBording> {
   List<OnBordingModel> bording = [
-    OnBordingModel("asset/1.jpg", "he", "Title of Screen 1"),
-    OnBordingModel("asset/2.jpg", "Srr", "Title of Screen 2"),
-    OnBordingModel("asset/3.jpg", "uu", "Title of Screen 3"),
+    OnBordingModel("assets/1.jpg", "Welcome to QuickCar!",
+        "Your one-stop solution for car services and rentals"),
+    OnBordingModel("assets/2.jpg", "",
+        "View your past services and rentals to manage your car needs effortlessly"),
+    OnBordingModel("assets/3.jpg", "",
+        "Book a service that suits your needs. Choose a date and time!"),
   ];
 
   var bord = PageController();
@@ -51,7 +54,7 @@ class _OnBordingState extends State<OnBording> {
           children: [
             Expanded(
               child: PageView.builder(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 controller: bord,
                 itemCount: bording.length,
                 itemBuilder: (context, index) =>
@@ -94,7 +97,7 @@ class _OnBordingState extends State<OnBording> {
                           curve: Curves.fastLinearToSlowEaseIn);
                     }
                   },
-                  child: Icon(Icons.arrow_forward_outlined),
+                  child: const Icon(Icons.arrow_forward_outlined),
                 ),
               ],
             )

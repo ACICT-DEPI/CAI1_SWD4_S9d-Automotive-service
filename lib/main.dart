@@ -1,9 +1,8 @@
 import 'package:demi1/route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'firebase_options.dart';
-import 'onboarding.dart';
+import '/dio/diohelper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
