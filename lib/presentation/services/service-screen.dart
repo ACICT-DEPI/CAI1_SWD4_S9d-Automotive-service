@@ -1,5 +1,9 @@
+import 'package:demi1/presentation/services/spare-parts.dart';
+import 'package:demi1/presentation/services/winch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+import 'clean.dart';
 
 class ServicesScreen extends StatelessWidget {
   @override
@@ -14,12 +18,8 @@ class ServicesScreen extends StatelessWidget {
         title: Text(
           'Our Services',
           style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.indigo[700],
-          ),
+              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -34,19 +34,7 @@ class ServicesScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search services...',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.0)),
-                  suffixIcon: const Icon(Icons.search),
-                ),
-              ),
-            ),
-            SizedBox(height: 15),
+            SizedBox(height: 25),
             Image.asset(
               "assets/main.jpg",
             ),
@@ -59,56 +47,10 @@ class ServicesScreen extends StatelessWidget {
                   elevation: 3,
                   color: Colors.white,
                   child: ServiceBox(
-                    title: 'Wheel Service',
-                    imagePath: 'assets/s3.jpg', // Add your image path
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) =>
-                                const DetailScreen('Wheel Service'))),
-                  ),
-                ),
-                Card(
-                  elevation: 3,
-                  color: Colors.white,
-                  child: ServiceBox(
-                    title: 'Engine Service',
+                    title: 'Rescue Winch',
                     imagePath: 'assets/s2.jpg', // Add your image path
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) =>
-                                const DetailScreen('Engine Service'))),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Card(
-                  elevation: 3,
-                  color: Colors.white,
-                  child: ServiceBox(
-                    title: 'Oil Service',
-                    imagePath: 'assets/s1.jpg', // Add your image path
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => DetailScreen('Oil Service'))),
-                  ),
-                ),
-                Card(
-                  elevation: 3,
-                  color: Colors.white,
-                  child: ServiceBox(
-                    title: 'Gas Service',
-                    imagePath: 'assets/s6.jpg', // Add your image path
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => DetailScreen('Gas Service'))),
+                    onTap: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const RescueWinch())),
                   ),
                 ),
               ],
@@ -126,7 +68,7 @@ class ServicesScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => DetailScreen('Oil Service'))),
+                            builder: (_) => const CleanServiceScreen())),
                   ),
                 ),
                 Card(
@@ -135,10 +77,8 @@ class ServicesScreen extends StatelessWidget {
                   child: ServiceBox(
                     title: 'Body Service',
                     imagePath: 'assets/s5.jpg', // Add your image path
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => DetailScreen('Gas Service'))),
+                    onTap: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => SpareParts())),
                   ),
                 ),
               ],
@@ -182,23 +122,6 @@ class ServiceBox extends StatelessWidget {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class DetailScreen extends StatelessWidget {
-  final String serviceName;
-
-  const DetailScreen(this.serviceName, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(serviceName)),
-      body: Center(
-        child:
-            Text('Details about $serviceName', style: TextStyle(fontSize: 24)),
       ),
     );
   }

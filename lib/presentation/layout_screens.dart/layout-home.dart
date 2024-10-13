@@ -142,7 +142,7 @@ class _ShowroomState extends State<HomeLayout> {
                                   physics: const NeverScrollableScrollPhysics(),
                                   crossAxisSpacing: 4,
                                   mainAxisSpacing: 3,
-                                  childAspectRatio: 1 / 1.75,
+                                  childAspectRatio: 1 / 2,
                                   children: List.generate(cars.length, (index) {
                                     return GestureDetector(
                                       onTap: () {

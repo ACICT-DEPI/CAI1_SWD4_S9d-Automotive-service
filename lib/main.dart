@@ -1,8 +1,8 @@
+import 'package:demi1/presentation/services/spare-parts.dart';
 import 'package:demi1/route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
-import '/dio/diohelper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           appBarTheme: const AppBarTheme(color: Colors.white, elevation: 0.0)),
       onGenerateRoute: homeRoute.generateRoute,
+      home: SpareParts(),
     );
   }
 }

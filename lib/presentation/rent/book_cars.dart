@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../data/model/car_model.dart';
 
 class BookCar extends StatefulWidget {
@@ -30,9 +31,91 @@ class _BookCarState extends State<BookCar> {
       width: isActive ? 20 : 8,
       decoration: BoxDecoration(
         color: isActive ? Colors.black : Colors.grey[400],
-        borderRadius: const BorderRadius.all(
-          Radius.circular(12),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+      ),
+    );
+  }
+
+  Widget buildPricePerPeriod(String months, String price, bool selected) {
+    return Container(
+      width: 90, // Set a fixed width or use MediaQuery for dynamic width
+      height: 110,
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: selected ? Colors.blue : Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        border: Border.all(width: selected ? 0 : 1),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "$months Month",
+            style: TextStyle(
+              color: selected ? Colors.white : Colors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Expanded(child: Container()),
+          Text(
+            price,
+            style: TextStyle(
+              color: selected ? Colors.white : Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            "EGP",
+            style: TextStyle(
+              color: selected ? Colors.white : Colors.black,
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildSpecificationCar(String title, String data) {
+    return Container(
+      height: 120,
+      width: 130,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
         ),
+      ),
+      padding: const EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 16,
+      ),
+      margin: EdgeInsets.only(right: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              color: Colors.grey,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            data,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -67,11 +150,8 @@ class _BookCarState extends State<BookCar> {
                                 height: 45,
                                 decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
-                                    Radius.circular(15),
-                                  ),
-                                  border: Border.all(
-                                    width: 1,
-                                  ),
+                                      Radius.circular(15)),
+                                  border: Border.all(width: 1),
                                 ),
                                 child: const Icon(
                                   Icons.keyboard_arrow_left,
@@ -87,9 +167,8 @@ class _BookCarState extends State<BookCar> {
                                   height: 45,
                                   decoration: const BoxDecoration(
                                     color: Colors.blue,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(15),
-                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15)),
                                   ),
                                   child: const Icon(
                                     Icons.bookmark_border,
@@ -103,11 +182,8 @@ class _BookCarState extends State<BookCar> {
                                   height: 45,
                                   decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
-                                      Radius.circular(15),
-                                    ),
-                                    border: Border.all(
-                                      width: 1,
-                                    ),
+                                        Radius.circular(15)),
+                                    border: Border.all(width: 1),
                                   ),
                                   child: const Icon(
                                     Icons.share,
@@ -134,7 +210,7 @@ class _BookCarState extends State<BookCar> {
                       ),
                       SizedBox(height: 8),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
                           widget.car.brand,
                           style: const TextStyle(
@@ -230,7 +306,8 @@ class _BookCarState extends State<BookCar> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                      padding:
+                          const EdgeInsets.only(top: 16, left: 16, right: 16),
                       child: Text(
                         "SPECIFICATIONS",
                         style: TextStyle(
@@ -295,12 +372,11 @@ class _BookCarState extends State<BookCar> {
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 22,
+                        fontSize: 15,
                       ),
                     ),
-                    SizedBox(width: 8),
                     const Text(
-                      "per month",
+                      " per month",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -310,6 +386,7 @@ class _BookCarState extends State<BookCar> {
                 ),
               ],
             ),
+            Spacer(),
             Container(
               height: 50,
               decoration: const BoxDecoration(
@@ -321,21 +398,39 @@ class _BookCarState extends State<BookCar> {
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: TextButton(
                     onPressed: () {
-                      // Handle booking logic here
-                      String selectedPrice =
-                          ["4.350", "4.800", "5.100"][_selectedPriceIndex];
-                      print("Booking car for $selectedPrice EGP");
-                      // Add your booking logic here
-                    },
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Book this car",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                      // Show the SnackBar
+                      final snackBar = SnackBar(
+                        content: const Text('You booked this car'),
+                        action: SnackBarAction(
+                          label: 'OK',
+                          onPressed: () async {
+                            final Uri smsUri = Uri(
+                              scheme: 'sms',
+                              path: '01095545002',
+                              queryParameters: {
+                                'body':
+                                    "Come to ..... after 2 days to take this car"
+                              },
+                            );
+
+                            if (await canLaunchUrl(smsUri)) {
+                              await launchUrl(smsUri,
+                                  mode: LaunchMode.externalApplication);
+                            } else {
+                              print('Could not launch SMS app');
+                            }
+                          },
                         ),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    child: const Text(
+                      "Book this car",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
                     ),
                   ),
@@ -344,90 +439,6 @@ class _BookCarState extends State<BookCar> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget buildPricePerPeriod(String months, String price, bool selected) {
-    return Expanded(
-      child: Container(
-        height: 110,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: selected ? Colors.blue : Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          border: Border.all(width: selected ? 0 : 1),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "$months Month",
-              style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Expanded(child: Container()),
-            Text(
-              price,
-              style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              "EGP",
-              style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildSpecificationCar(String title, String data) {
-    return Container(
-      width: 130,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      padding: const EdgeInsets.symmetric(
-        vertical: 8,
-        horizontal: 16,
-      ),
-      margin: EdgeInsets.only(right: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            data,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
       ),
     );
   }
