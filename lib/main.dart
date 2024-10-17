@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           appBarTheme: const AppBarTheme(color: Colors.white, elevation: 0.0)),
       onGenerateRoute: homeRoute.generateRoute,
-      home: SpareParts(),
     );
   }
 }
